@@ -7,7 +7,7 @@
       Submit
     </button>
     <div v-for="(issue, index) in issues" :key="index">
-      <p>{{ issue }}</p>
+      <p>{{ issue.id }}</p>
       <p>{{ issue.title }}</p>
       <p>{{ issue.text }}</p>
       <p>------------</p>
@@ -38,6 +38,7 @@ export default {
         console.log(response);
         $this.form.title = null
         $this.form.text = null
+        // $this.get()
       })
       .catch(function (error) {
         console.log(error);
@@ -45,11 +46,20 @@ export default {
     },
     get () {
       let $this = this
-      axios.get('/issue')
-      .then(function (response) {
-        console.log(response);
-        $this.issues = response.data
+      axios.get('/issue', {
+        params: {
+          // sort: -1,
+          $skip: 10
+        }
       })
+      .then(function (response) {
+        console.log(response.data);
+        $this.issues = response.data.data
+      })
+      // axios.get('/issue').then(function (response) {
+      //   console.log(response.data);
+      //   $this.issues = response.data.data
+      // })
     }
   }
 }

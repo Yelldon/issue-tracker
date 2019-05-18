@@ -1,19 +1,27 @@
 <template>
   <div id="app">
-    <CreateIssue />
+    <create-issue />
+    <!-- <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/> -->
   </div>
 </template>
 
 <script>
-import CreateIssue from './components/CreateIssue.vue'
-
+import CreateIssue from './components/CreateIssue'
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     CreateIssue
+  },
+  data () {
+    return {}
   }
 }
 </script>
+
 
 <style>
 #app {
