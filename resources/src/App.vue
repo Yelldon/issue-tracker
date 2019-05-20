@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <create-issue />
+    <!-- <create-issue /> -->
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
-    <router-view/> -->
+    </div> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
-import CreateIssue from './components/CreateIssue'
+// import CreateIssue from './components/CreateIssue'
 export default {
   name: 'App',
-  components: {
-    CreateIssue
-  },
+  // components: {
+  //   CreateIssue
+  // },
   data () {
     return {}
   }

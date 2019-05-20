@@ -6,5 +6,29 @@
     "default": 10,
     "max": 50
   },
-  "mysql": "mysql://homestead:secret@localhost:33060/feathers"
+  "mysql": "mysql://homestead:secret@localhost:33060/feathers",
+  "authentication": {
+    "secret": "128dfccb504480d46310447c36de04fa4836d7f324442e5394e451a8137acd5f46318eba1aee8a9ae1dc993f65f55b6cde47253510e7dfafc2b283b0650587d92436a97c3daa1a4f49e00f4a1d7cc4767796d22ed3e2344593bf42725b5663538a60fa0c53094d7deb8eaa3bb7aaec7a2b6c28a95f921db726c9dfd2d33330af84786279f80610a5e5acfd26be85a3b7fb32f9d13c9e1b4006d6b209bb5c5bdb897cd95d5e5c3b2f6edd5f1ba0b7372b40b65542bf84dd749a24d4bccaa40c7ce5e82e4157e71aee48c36ae3ba246ac609736c75d0c9c35a8a86d0b92e271b8c8219ffaeafacf9c11a75356c358c6d26d3d28115a4a21d1659c1d6e8406d31ae",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "http://localhost:3030",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "username",
+      "passwordField": "password"
+    }
+  }
 }

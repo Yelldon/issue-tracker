@@ -1,7 +1,7 @@
-// Initializes the `issue` service on path `/issue`
+// Initializes the `users` service on path `/users`
 const createService = require('feathers-sequelize');
-const createModel = require('../../models/issue.model');
-const hooks = require('./issue.hooks');
+const createModel = require('../../models/users.model');
+const hooks = require('./users.hooks');
 
 module.exports = function (app) {
   const Model = createModel(app);
@@ -13,17 +13,10 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/issue', createService(options));
+  app.use('/users', createService(options));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('issue');
-  service.find({
-    query: {
-      $sort: {
-        createdAt: -1
-      }
-    }
-  });
+  const service = app.service('users');
 
   service.hooks(hooks);
 };

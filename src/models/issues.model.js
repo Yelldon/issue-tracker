@@ -5,13 +5,13 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const issue = sequelizeClient.define('issue', {
+  const issues = sequelizeClient.define('issues', {
     title: {
       type: DataTypes.STRING,
       allowNull: false
     },
     text: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: true
     }
   }, {
@@ -23,10 +23,10 @@ module.exports = function (app) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  issue.associate = function (models) {
+  issues.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  return issue;
+  return issues;
 };

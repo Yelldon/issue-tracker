@@ -1,13 +1,15 @@
-
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
   before: {
-    all: [],
+    all: [
+      authenticate('jwt')
+    ],
     find: [
       function(context) {
         let sort = context.params.query.sort
         context.params.query = {
-          $skip: context.params.query.$skip,
+          // $skip: context.params.query.$skip,
           $sort: {
             createdAt: parseInt(sort, 10)
           }
