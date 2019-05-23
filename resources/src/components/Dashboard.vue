@@ -1,24 +1,23 @@
 <template>
   <div class="create">
-    <h1>Create Issue</h1>
-    <input type="text" v-model="form.title" />
-    <input type="textarea" v-model="form.text"/>
-    <button @click="add">
-      Submit
-    </button>
-    <div v-for="(issue, index) in issues" :key="index">
-      <p>{{ issue.id }}</p>
-      <p>{{ issue.title }}</p>
-      <p>{{ issue.text }}</p>
-      <p v-if="issue.user">Created By: {{ issue.user.firstname }} {{ issue.user.lastname }}</p>
-      <p>------------</p>
+    <h1>Dashboard</h1>
+    <CreateIssue />
+    <div v-for="issue in issues" :key="'issue-' + issue.id">
+      <Issue :issue="issue" />
     </div>
   </div>
 </template>
 
 <script>
+import CreateIssue from './CreateIssue'
+import Issue from './Issue'
+
 export default {
   name: 'Dashboard',
+  components: {
+    CreateIssue,
+    Issue
+  },
   data () {
     return {
       issues: [],
@@ -29,23 +28,10 @@ export default {
     }
   },
   mounted () {
-    this.get()
+    this.getIssues()
   },
   methods: {
-    add () {
-      let $this = this
-      axios.post('/issues', this.$data.form)
-      .then(function (response) {
-        console.log(response);
-        $this.form.title = null
-        $this.form.text = null
-        $this.get()
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    },
-    get () {
+    getIssues () {
       let $this = this
       axios.get('/issues', {
         params: {
