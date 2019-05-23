@@ -16,6 +16,13 @@ module.exports = {
       text: {
         type: Sequelize.TEXT
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        refernences: {
+          model: 'users',
+          key: 'id'
+        }
+      },
       // Timestamps
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,

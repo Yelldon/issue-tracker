@@ -7,6 +7,17 @@ module.exports = {
     ],
     find: [
       function(context) {
+        const User = context.app.services.users.Model;
+
+        context.params.sequelize = {
+            raw: false,
+            include: [{
+              model: User,
+              as: 'user',
+              attributes: ['firstname', 'lastname']
+            }]
+        }
+
         let sort = context.params.query.sort
         context.params.query = {
           // $skip: context.params.query.$skip,
@@ -14,12 +25,19 @@ module.exports = {
             createdAt: parseInt(sort, 10)
           }
         }
-        // console.log(context.params.query)
+
         return context
       }
     ],
     get: [],
-    create: [],
+    create: [
+      function(context) {
+        context.data.userId = context.params.user.id
+        console.log(context)
+
+        return context;
+      }
+    ],
     update: [],
     patch: [],
     remove: []
@@ -31,9 +49,7 @@ module.exports = {
     get: [],
     create: [
       function(context) {
-        // console.log(context.result)
         context.result.message = `Successfully created issue ${context.result.id}`
-        console.log(context.result)
         return context
       }
     ],

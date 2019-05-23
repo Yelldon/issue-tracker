@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <a href="#" @click.prevent="logout">
+      Logout
+    </a>
     <!-- <create-issue /> -->
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -18,6 +21,12 @@ export default {
   // },
   data () {
     return {}
+  },
+  methods: {
+    logout () {
+      window.localStorage.removeItem('accessToken')
+      this.$router.push({ name: 'Login' })
+    }
   }
 }
 </script>

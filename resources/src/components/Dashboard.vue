@@ -10,6 +10,7 @@
       <p>{{ issue.id }}</p>
       <p>{{ issue.title }}</p>
       <p>{{ issue.text }}</p>
+      <p v-if="issue.user">Created By: {{ issue.user.firstname }} {{ issue.user.lastname }}</p>
       <p>------------</p>
     </div>
   </div>

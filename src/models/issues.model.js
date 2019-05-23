@@ -13,6 +13,10 @@ module.exports = function (app) {
     text: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     hooks: {
@@ -26,6 +30,10 @@ module.exports = function (app) {
   issues.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+    issues.belongsTo(models.users, {
+        as: 'user',
+        foreignKey: 'userId'
+    });
   };
 
   return issues;
