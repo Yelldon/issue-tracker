@@ -4,6 +4,10 @@
 
 @tailwind utilities;
 
-/* a {
-  @apply blue
-} */
+a {
+  @apply text-blue-600;
+}
+
+input {
+  @apply border;
+}

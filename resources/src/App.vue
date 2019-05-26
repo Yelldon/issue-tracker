@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="container mx-auto">
+  <div id="app">
     <Menu />
-    <div class="container mx-auto">
+    <div class="container mx-auto pt-16">
       <router-view/>
     </div>
   </div>
