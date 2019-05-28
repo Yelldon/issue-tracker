@@ -1,6 +1,4 @@
-# issue-tracker
-
-## Project setup
+### Front end setup
 ```
 npm install
 ```
@@ -25,5 +23,4 @@ npm run test
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Further information if available in the readme one level up.
