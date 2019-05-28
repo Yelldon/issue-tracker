@@ -6,7 +6,9 @@
     <button @click="login">
       Login
     </button>
+    <p v-if="error">There was an error logging in</p>
   </div>
+
 </template>
 
 <script>
@@ -18,7 +20,8 @@ export default {
         strategy: 'local',
         username: null,
         password: null
-      }
+      },
+      error: false
     }
   },
   mounted () {
@@ -27,12 +30,14 @@ export default {
   methods: {
     login () {
       let $this = this
+      this.error = false
       axios.post('/authentication', this.$data.form)
       .then(function (response) {
         window.localStorage.setItem('accessToken', response.data.accessToken);
         $this.$router.push({ name: 'Dashboard' })
       })
       .catch(function (error) {
+        $this.error = true
         console.log('Could not authenticate user', error);
       });
     }

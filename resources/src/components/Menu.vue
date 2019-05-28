@@ -18,15 +18,17 @@
 </template>
 
 <script>
-// import CreateIssue from './components/CreateIssue'
 export default {
   name: 'App',
   // components: {
   //   CreateIssue
   // },
   data () {
-    return {
-      user: ''
+    return {}
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   },
   methods: {

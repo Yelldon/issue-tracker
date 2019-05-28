@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 
 Vue.use(Router)
 
@@ -27,15 +28,13 @@ const router = new Router({
 })
 
 router.beforeResolve((to, from, next) => {
-  const accessToken = window.localStorage.getItem('accessToken')
+  // const accessToken = window.localStorage.getItem('accessToken')
   // console.log(to.name)
   if (to.name !== 'Login') {
-    axios.post('/authentication', null, {
-      headers: {
-        'Authorization': accessToken
-      }
-    })
+    axios.post('/authentication')
     .then(function (response) {
+      console.log(response.data.user)
+      store.commit('setUser', response.data.user)
       next()
     })
     .catch(function (error) {
