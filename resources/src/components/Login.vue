@@ -1,12 +1,18 @@
 <template>
  <div class="login text-center">
-    <h1>Login</h1>
-    <input type="text" v-model="form.username" />
-    <input type="textarea" v-model="form.password"/>
-    <button @click="login">
-      Login
-    </button>
-    <p v-if="error">There was an error logging in</p>
+    <div class="w-1/3 p-8 mx-auto shadow-lg rounded bg-white">
+    <h1 class="text-3xl font-bold">Issue Tracker</h1>
+      <form class="mt-8" @submit.prevent="login">
+        <input type="text" class="mb-6 focus:outline-none focus:shadow-outline" placeholder="Username" v-model="form.username" />
+        <input type="password" class="mb-6 focus:outline-none focus:shadow-outline" placeholder="Password" v-model="form.password"/>
+        <div class="flex">
+          <button class="b-blue">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+    <p class="mt-8 text-red-600" v-if="error">{{ errorMessage }}</p>
   </div>
 
 </template>
@@ -21,7 +27,8 @@ export default {
         username: null,
         password: null
       },
-      error: false
+      error: false,
+      errorMessage: 'There was an error logging in'
     }
   },
   mounted () {
@@ -38,6 +45,7 @@ export default {
       })
       .catch(function (error) {
         $this.error = true
+        $this.form.password = null
         console.log('Could not authenticate user', error);
       });
     }

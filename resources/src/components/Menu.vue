@@ -1,6 +1,6 @@
 <template>
   <!-- <nav class="fixed flex shadow w-full h-12 p-3"> -->
-  <nav v-if="showMenu" class="fixed flex items-center shadow w-full p-3">
+  <nav v-if="showMenu" class="fixed flex items-center shadow-lg bg-white w-full p-3">
     <div class="w-1/2">
       <div class="flex justify-start text-lg font-bold">
         Issue Tracker

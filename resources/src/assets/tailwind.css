@@ -9,5 +9,13 @@ a {
 }
 
 input {
-  @apply border;
+  @apply shadow border appearance-none rounded-lg border border-gray-500 w-full py-2 px-3 text-gray-700 leading-tight;
+}
+
+button {
+  @apply shadow font-bold py-2 px-4 rounded-lg;
+}
+
+.b-blue {
+  @apply bg-blue-500 text-white;
 }
