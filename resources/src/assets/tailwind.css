@@ -19,3 +19,11 @@ button {
 .b-blue {
   @apply bg-blue-500 text-white;
 }
+
+.b-green {
+  @apply bg-green-500 text-white;
+}
+
+.overlay {
+  @apply bg-black fixed inset-0 w-screen h-screen opacity-75 z-40;
+}
