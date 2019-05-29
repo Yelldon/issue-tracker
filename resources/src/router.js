@@ -12,7 +12,16 @@ const router = new Router({
       name: 'Dashboard',
       component: () => import(
         /* webpackChunkName: 'dashboard' */
-        './components/Dashboard.vue')
+        './components/Dashboard.vue'),
+      children: [
+        {
+          path: 'create',
+          name: 'DashboardCreate',
+          component: () => import(
+            /* webpackChunkName: 'create-issue' */
+            './components/CreateIssue.vue')
+        }
+      ]
     },
     {
       path: '/login',

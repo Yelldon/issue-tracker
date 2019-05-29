@@ -3,8 +3,8 @@
     <h2>Create Issue</h2>
     <input type="text" class="border" v-model="form.title" />
     <input type="textarea" class="border" v-model="form.text"/>
-    <button @click="add">
-      Submit
+    <button class="b-green" @click="addIssue">
+      Create
     </button>
   </div>
 </template>
@@ -32,6 +32,7 @@ export default {
         console.log(response);
         $this.form.title = null
         $this.form.text = null
+        $this.$root.$emit('getIssues')
       })
       .catch(function (error) {
         console.log(error);
