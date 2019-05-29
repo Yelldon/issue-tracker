@@ -28,13 +28,11 @@ const router = new Router({
 })
 
 router.beforeResolve((to, from, next) => {
-  // const accessToken = window.localStorage.getItem('accessToken')
-  // console.log(to.name)
   if (to.name !== 'Login') {
     axios.post('/authentication')
     .then(function (response) {
-      console.log(response.data.user)
       store.commit('setUser', response.data.user)
+      store.commit('setMenu', true)
       next()
     })
     .catch(function (error) {
@@ -42,6 +40,7 @@ router.beforeResolve((to, from, next) => {
       router.push({ name: 'Login' })
     });
   } else {
+    store.commit('setMenu', false)
     next()
   }
 })

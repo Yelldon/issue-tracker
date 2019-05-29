@@ -1,6 +1,6 @@
 <template>
   <!-- <nav class="fixed flex shadow w-full h-12 p-3"> -->
-  <nav class="fixed flex items-center shadow w-full p-3">
+  <nav v-if="showMenu" class="fixed flex items-center shadow w-full p-3">
     <div class="w-1/2">
       <div class="flex justify-start text-lg font-bold">
         Issue Tracker
@@ -20,13 +20,13 @@
 <script>
 export default {
   name: 'App',
-  // components: {
-  //   CreateIssue
-  // },
   data () {
     return {}
   },
   computed: {
+    showMenu () {
+      return this.$store.state.showMenu
+    },
     user () {
       return this.$store.state.user
     }
