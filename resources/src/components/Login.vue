@@ -12,7 +12,7 @@
         </div>
       </form>
     </div>
-    <p class="mt-8 text-red-600" v-if="error">{{ errorMessage }}</p>
+    <p class="mt-8 text-red-600" v-if="error">{{ error }}</p>
   </div>
 
 </template>
@@ -27,8 +27,7 @@ export default {
         username: null,
         password: null
       },
-      error: false,
-      errorMessage: 'There was an error logging in'
+      error: null,
     }
   },
   mounted () {
@@ -37,17 +36,19 @@ export default {
   methods: {
     login () {
       let $this = this
-      this.error = false
+      this.error = null
       axios.post('/authentication', this.$data.form)
       .then(function (response) {
-        window.localStorage.setItem('accessToken', response.data.accessToken);
-        $this.$router.push({ name: 'Dashboard' })
+        $this.createToken(response, () => $this.$router.push({ name: 'Dashboard' }))
       })
       .catch(function (error) {
-        $this.error = true
+        $this.error = error.response.data.message
         $this.form.password = null
-        console.log('Could not authenticate user', error);
       });
+    },
+    createToken (response, callback) {
+      window.localStorage.setItem('accessToken', response.data.accessToken);
+      callback && callback()
     }
   }
 }
