@@ -1,5 +1,5 @@
 <template>
-  <div class="flex border border-gray-500 bg-white rounded mb-4 p-4">
+  <div class="issue flex border border-gray-500 bg-white rounded mb-4 p-4 cursor-pointer" @click="editIssue">
     <div class="w-1/2">
       <p>Issue # {{ issue.id }}</p>
       <p>{{ issue.title }}</p>
@@ -16,9 +16,6 @@
 <script>
 export default {
   name: 'Issue',
-  // components: {
-  //   Menu
-  // },
   props: {
     issue: {
       type: Object,
@@ -29,7 +26,20 @@ export default {
     return {}
   },
   methods: {
-
+    editIssue () {
+      let id = this.issue.id
+      this.$router.push({ name: 'DashboardEdit', params: { id } })
+      this.$root.$emit('editIssue', id)
+    }
   }
 }
 </script>
+
+<style scoped>
+.issue {
+  transition: all 0.15s ease-in-out;
+}
+.issue:hover {
+  transform: scale(1.025);
+}
+</style>

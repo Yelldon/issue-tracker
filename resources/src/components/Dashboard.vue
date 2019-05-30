@@ -1,16 +1,24 @@
 <template>
   <div class="create">
-    <h1>Dashboard</h1>
-    <button class="b-blue" @click="createIssue">
-      Create Issue
-    </button>
-    <div v-for="issue in issues" :key="'issue-' + issue.id">
-      <Issue :issue="issue" />
+    <div class="flex">
+      <h1 class="heading mr-6">Dashboard</h1>
+      <button class="b-blue justify-end" @click="createIssue">
+        Create Issue
+      </button>
+    </div>
+    <div class="divider bg-gray-500 mt-3 mb-6"></div>
+    <h2 class="mb-6">Newest Issues</h2>
+    <div class="flex flex-col w-1/2 mt-6">
+      <div v-for="issue in issues" :key="'issue-' + issue.id">
+        <Issue :issue="issue" />
+      </div>
     </div>
     <div class="create-issue fixed w-5/6 p-10 bg-white shadow z-50" :class="{ active: issueActive }">
       <router-view />
     </div>
-    <div v-show="issueActive" class="overlay"></div>
+    <transition name="fade">
+      <div v-show="issueActive" @click="closeIssue" class="overlay"></div>
+    </transition>
   </div>
 </template>
 
@@ -39,6 +47,13 @@ export default {
       this.issueActive = false
       this.$router.push({ name: 'Dashboard' })
     })
+    this.$root.$on('closeCreate', () => {
+      this.issueActive = false
+      this.$router.push({ name: 'Dashboard' })
+    })
+    this.$root.$on('editIssue', (id) => {
+      this.editIssue(id)
+    })
   },
   methods: {
     getIssues () {
@@ -56,7 +71,25 @@ export default {
     createIssue () {
       this.issueActive = true
       this.$router.push({ name: 'DashboardCreate' })
-    }
+    },
+    editIssue (id) {
+      this.issueActive = true
+      this.$router.push({ name: 'DashboardEdit', params: { id } })
+    },
+    closeIssue () {
+      this.issueActive = false
+      this.$router.push({ name: 'Dashboard' })
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (to.name === 'DashboardCreate') {
+        vm.createIssue()
+      }
+      // if (to.name === 'DashboardEdit') {
+      //   // vm.editIssue()
+      // }
+    })
   }
 }
 </script>
@@ -68,11 +101,24 @@ export default {
   top: 51px;
   right: -100%;
   height: 100vh;
-  transition: all 0.2s ease-in-out
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(.48,.4,.45,.98)
 }
 
 .active {
   right: 0;
+  opacity: 1;
+}
+
+.divider {
+  height: 1px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 </style>

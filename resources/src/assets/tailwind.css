@@ -4,6 +4,10 @@
 
 @tailwind utilities;
 
+body {
+  @apply bg-gray-200;
+}
+
 a {
   @apply text-blue-600;
 }
@@ -14,6 +18,10 @@ input {
 
 button {
   @apply shadow font-bold py-2 px-4 rounded-lg;
+}
+
+.heading {
+  @apply text-3xl font-bold;
 }
 
 .b-blue {

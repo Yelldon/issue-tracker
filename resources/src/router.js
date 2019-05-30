@@ -20,6 +20,14 @@ const router = new Router({
           component: () => import(
             /* webpackChunkName: 'create-issue' */
             './components/CreateIssue.vue')
+        },
+        {
+          path: 'edit/:id',
+          name: 'DashboardEdit',
+          props: true,
+          component: () => import(
+            /* webpackChunkName: 'create-issue' */
+            './components/CreateIssue.vue')
         }
       ]
     },

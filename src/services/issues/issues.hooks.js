@@ -3,10 +3,8 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 module.exports = {
   before: {
     all: [
-      authenticate('jwt')
-    ],
-    find: [
-      function(context) {
+      authenticate('jwt'),
+      context => {
         const User = context.app.services.users.Model;
 
         context.params.sequelize = {
@@ -17,6 +15,12 @@ module.exports = {
               attributes: ['firstname', 'lastname']
             }]
         }
+
+        return context
+      }
+    ],
+    find: [
+      context => {
 
         let sort = context.params.query.sort
         context.params.query = {
@@ -31,9 +35,8 @@ module.exports = {
     ],
     get: [],
     create: [
-      function(context) {
+      context => {
         context.data.userId = context.params.user.id
-        console.log(context)
 
         return context;
       }
@@ -48,8 +51,9 @@ module.exports = {
     find: [],
     get: [],
     create: [
-      function(context) {
+      context => {
         context.result.message = `Successfully created issue ${context.result.id}`
+
         return context
       }
     ],

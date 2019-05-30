@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app bg-gray-200">
+  <div id="app" class="app">
     <Menu />
     <div class="container mx-auto pt-16">
       <router-view/>
