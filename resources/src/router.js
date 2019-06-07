@@ -32,6 +32,20 @@ const router = new Router({
       ]
     },
     {
+      path: '/user/add',
+      name: 'UserAdd',
+      component: () => import(
+        /* webpackChunkName: 'user' */
+        './components/Users.vue')
+    },
+    {
+      path: '/user/update/:id',
+      name: 'UserEdit',
+      component: () => import(
+        /* webpackChunkName: 'user' */
+        './components/Users.vue')
+    },
+    {
       path: '/login',
       name: 'Login',
       // route level code-splitting
