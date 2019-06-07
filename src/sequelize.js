@@ -5,7 +5,7 @@ module.exports = function (app) {
   const sequelize = new Sequelize(connectionString, {
     dialect: 'mysql',
     logging: false,
-    operatorsAliases: false,
+    // operatorsAliases: false,
     define: {
       freezeTableName: true
     }
