@@ -4,7 +4,8 @@
     <h2 v-else>Create New Issue</h2>
     <div v-if="edit">
       <p v-if="issue.user">Created By: {{ issue.user.firstname + ' ' + issue.user.lastname}}</p>
-      <p>{{ issue.createdAt }}</p>
+      <p>Added: {{ formatDateTime(issue.createdAt) }}</p>
+      <p>Last Updated: {{ formatDateTime(issue.createdAt) }}</p>
     </div>
     <form class="mt-8" @submit.prevent="checkIssue">
       <input type="text" class="border mb-6" v-model="form.title" />
@@ -21,8 +22,13 @@
 </template>
 
 <script>
+import mixins from '../mixins'
+
 export default {
   name: 'CreateIssue',
+  mixins: [
+    mixins
+  ],
   props: [
     'id'
   ],

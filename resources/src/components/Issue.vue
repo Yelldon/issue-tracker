@@ -7,15 +7,20 @@
     </div>
     <div class="w-1/2">
       <p v-if="issue.user">Created By: {{ issue.user.firstname }} {{ issue.user.lastname }}</p>
-      <p>Created By: {{ issue.createdAt }}</p>
-      <p>Updated By: {{ issue.updatedAt }}</p>
+      <p>Added: {{ formatDateTime(issue.createdAt) }}</p>
+      <p>Updated: {{ formatDateTime(issue.updatedAt) }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import mixins from '../mixins'
+
 export default {
   name: 'Issue',
+  mixins: [
+    mixins
+  ],
   props: {
     issue: {
       type: Object,
