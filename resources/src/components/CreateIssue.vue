@@ -9,7 +9,7 @@
     </div>
     <form class="mt-8" @submit.prevent="checkIssue">
       <input type="text" class="border mb-6" v-model="form.title" />
-      <input type="textarea" rows="6" class="border mb-6" v-model="form.text"/>
+      <textarea rows="6" class="border mb-6" v-model="form.text" />
       <button class="b-green">
         <span v-if="edit"> Save Issue</span>
         <span v-else>Create Issue</span>
