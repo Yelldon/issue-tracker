@@ -29,17 +29,20 @@ app.configure(configuration());
 app.use(helmet());
 app.use(cors());
 app.use(compress());
-// Setup history mode for the server
-// app.use(history({
-//   index: '/',
-//   disableDotRule: true,
-//   logger: console.log.bind(console)
-// }))
-// app.use(history())
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
+app.use('/', express.static(app.get('public')));
+
+// Setup history mode for the server
+app.use(history({
+  disableDotRule: true,
+  logger: console.log.bind(console)
+}))
+
+// We have to duplicate the base path so feathers can pick it back up
 app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
@@ -57,7 +60,8 @@ app.configure(services);
 app.configure(channels);
 
 // Configure a middleware for 404s and the error handler
-app.use(express.notFound());
+// Commented out to let Vue router handle the 404s
+// app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);

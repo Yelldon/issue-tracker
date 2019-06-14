@@ -8,7 +8,9 @@
 </template>
 
 <script>
+import './assets/app.css'
 import Menu from './components/Menu'
+
 export default {
   name: 'App',
   components: {
@@ -22,7 +24,6 @@ export default {
   }
 }
 </script>
-
 
 <style>
 .app {

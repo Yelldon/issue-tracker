@@ -54,6 +54,11 @@ export default {
     this.$root.$on('editIssue', (id) => {
       this.editIssue(id)
     })
+
+    this.$socket.on('issues newIssue', (data) => {
+      console.log('New issue created')
+      console.log(data)
+    })
   },
   methods: {
     getIssues () {

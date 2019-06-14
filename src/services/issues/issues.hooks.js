@@ -53,6 +53,9 @@ module.exports = {
     create: [
       context => {
         context.result.message = `Successfully created issue ${context.result.id}`
+        context.service.emit('newIssue', {
+          status: `Successfully created issue ${context.result.id}`
+        })
 
         return context
       }

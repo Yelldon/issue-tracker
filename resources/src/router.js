@@ -8,6 +8,12 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      redirect: {
+        name: 'Dashboard'
+      }
+    },
+    {
       path: '/dashboard',
       name: 'Dashboard',
       component: () => import(
@@ -54,7 +60,13 @@ const router = new Router({
       component: () => import(
         /* webpackChunkName: 'login' */
         './components/Login.vue')
-    }
+    },
+    {
+      path: '*',
+      redirect: {
+        name: 'Dashboard'
+      }
+    },
   ]
 })
 
@@ -64,6 +76,10 @@ router.beforeResolve((to, from, next) => {
     .then(function (response) {
       store.commit('setUser', response.data.user)
       store.commit('setMenu', true)
+      // Reconnect the socket connetion on page load
+      // if (!Vue.$socket.connected) {
+      //   Vue.$socket.connect()
+      // }
       next()
     })
     .catch(function (error) {

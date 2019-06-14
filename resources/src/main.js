@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import './plugins/axios'
+import './plugins/socket'
 import App from './App.vue'
 import router from './router'
-import './assets/tailwind.css'
 import store from './store'
 
 Vue.config.productionTip = false
