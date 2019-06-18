@@ -27,6 +27,7 @@ module.exports = function (app) {
       all: [
         context => {
           let user = context.params.user.firstname + ' ' + context.params.user.lastname
+          context.result.id = context.params.user.id
           context.result.user = user
         }
       ]

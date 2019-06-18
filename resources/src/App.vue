@@ -29,4 +29,18 @@ export default {
 .app {
   min-height: 100vh;
 }
+.notification-container {
+  right: 15px !important;
+}
+.notification {
+  background: red !important;
+}
+
+.notification.yours {
+  background: blue !important;
+}
+
+.notification.others {
+  background: green !important;
+}
 </style>

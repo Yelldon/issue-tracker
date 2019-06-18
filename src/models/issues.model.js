@@ -16,7 +16,7 @@ module.exports = function (app) {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false
     }
   }, {
     hooks: {

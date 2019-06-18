@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './plugins/axios'
 import './plugins/socket'
+import './plugins/toasted'
 import App from './App.vue'
 import router from './router'
 import store from './store'

@@ -56,9 +56,22 @@ export default {
     })
 
     this.$socket.on('issues newIssue', (data) => {
-      console.log('New issue created')
+      console.log(this.$store.state.userId)
       console.log(data)
+      let css = ''
+      if (this.$store.state.userId === data.userId) {
+        css = 'yours'
+      } else {
+        css = 'others'
+      }
+      this.$toasted.global.newIssue({
+        message: data.message,
+        class: css
+      })
     })
+  },
+  destroyed () {
+    this.$socket.off('issues newIssue')
   },
   methods: {
     getIssues () {
