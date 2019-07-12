@@ -9,6 +9,7 @@
     </div>
     <form class="mt-8" @submit.prevent="checkIssue">
       <input type="text" class="border mb-6" v-model="form.title" />
+      <statuses v-bind:selected.sync="form.statusId" />
       <textarea rows="6" class="border mb-6" v-model="form.text" />
       <button class="b-green">
         <span v-if="edit"> Save Issue</span>
@@ -23,12 +24,16 @@
 
 <script>
 import mixins from '../mixins'
+import Statuses from './partials/Statuses'
 
 export default {
   name: 'CreateIssue',
   mixins: [
     mixins
   ],
+  components: {
+    Statuses
+  },
   props: [
     'id'
   ],
@@ -37,7 +42,8 @@ export default {
       issue: null,
       form: {
         title: null,
-        text: null
+        text: null,
+        statusId: null
       },
       edit: false
     }

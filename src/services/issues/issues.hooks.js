@@ -4,25 +4,13 @@ module.exports = {
   before: {
     all: [
       authenticate('jwt'),
-      context => {
-        const User = context.app.services.users.Model;
-
-        context.params.sequelize = {
-            raw: false,
-            include: [{
-              model: User,
-              as: 'user',
-              attributes: ['firstname', 'lastname']
-            }]
-        }
-
-        return context
-      }
     ],
     find: [
       context => {
-
+        const User = context.app.services.users.Model;
+        const Status = context.app.services.statuses.Model;
         let sort = context.params.query.sort
+
         context.params.query = {
           // $skip: context.params.query.$skip,
           $sort: {
@@ -30,10 +18,49 @@ module.exports = {
           }
         }
 
+        context.params.sequelize = {
+          raw: false,
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['firstname', 'lastname']
+            },
+            {
+              model: Status,
+              as: 'status',
+              attributes: ['statusName']
+            }
+          ]
+        }
+
         return context
       }
     ],
-    get: [],
+    get: [
+      context => {
+        const User = context.app.services.users.Model;
+        const Status = context.app.services.statuses.Model;
+
+        context.params.sequelize = {
+          raw: false,
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['firstname', 'lastname']
+            },
+            {
+              model: Status,
+              as: 'status',
+              attributes: ['statusName']
+            }
+          ]
+        }
+
+        return context
+      }
+    ],
     create: [
       context => {
         context.data.userId = context.params.user.id

@@ -5,21 +5,9 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const issues = sequelizeClient.define('issues', {
-    title: {
+  const statuses = sequelizeClient.define('statuses', {
+    statusName: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
-    text: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    statusId: {
-      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
@@ -31,18 +19,10 @@ module.exports = function (app) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  issues.associate = function (models) {
+  statuses.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    issues.belongsTo(models.users, {
-      as: 'user',
-      foreignKey: 'userId'
-    });
-    issues.belongsTo(models.statuses, {
-      as: 'status',
-      foreignKey: 'statusId'
-    });
   };
 
-  return issues;
+  return statuses;
 };

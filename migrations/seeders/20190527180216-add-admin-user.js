@@ -13,15 +13,15 @@ module.exports = {
     });
     return Promise.all([passwordPromise]).then((values) => {
       return queryInterface.bulkInsert('users', [
-          {
-            username: 'admin',
-              password,
-              firstname: 'Admin',
-              lastname: 'User',
-              email: 'admin@example.com'
-          },
-        ], {});
-      });
+        {
+          username: 'admin',
+          password,
+          firstname: 'Admin',
+          lastname: 'User',
+          email: 'admin@example.com'
+        },
+      ], {});
+    });
   },
 
   down: (queryInterface, Sequelize) => {
