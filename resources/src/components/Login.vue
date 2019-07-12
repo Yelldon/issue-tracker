@@ -38,17 +38,19 @@ export default {
       let $this = this
       this.error = null
       axios.post('/authentication', this.$data.form)
-      .then(function (response) {
-        $this.createToken(response, () => $this.$router.push({ name: 'Dashboard' }))
+      .then((response) => {
+        window.localStorage.setItem('accessToken', response.data.accessToken)
+        $this.$router.push({ name: 'Dashboard' })
+        // Here we set the authentication for the websockets as well
+        $this.$socket.emit('authenticate', {
+          strategy: 'jwt',
+          accessToken: response.accessToken
+        }, (message, data) => {})
       })
-      .catch(function (error) {
+      .catch((error) => {
         $this.error = error.response.data.message
         $this.form.password = null
       });
-    },
-    createToken (response, callback) {
-      window.localStorage.setItem('accessToken', response.data.accessToken);
-      callback && callback()
     }
   }
 }

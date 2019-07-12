@@ -1,19 +1,22 @@
-"use strict";
+'use strict';
 
 import Vue from 'vue';
 import axios from "axios";
 
-const accessToken = window.localStorage.getItem('accessToken')
+let accessToken = window.localStorage.getItem('accessToken')
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
-axios.defaults.headers.common['Authorization'] = accessToken;
+
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
+  headers: {
+    'Authorization': window.localStorage.getItem('accessToken')
+  }
 };
 
 const _axios = axios.create(config);
@@ -21,6 +24,8 @@ const _axios = axios.create(config);
 _axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
+    config.headers.Authorization = window.localStorage.getItem('accessToken')
+
     return config;
   },
   function(error) {

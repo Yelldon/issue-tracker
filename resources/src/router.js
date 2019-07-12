@@ -71,30 +71,21 @@ const router = new Router({
 })
 
 router.beforeResolve((to, from, next) => {
-  const accessToken = window.localStorage.getItem('accessToken')
-  if (to.name !== 'Login') {
-    axios.post('/authentication', null, {
-      headers: {
-        'Authorization': accessToken
-      }
-    })
+  if (to.name === 'Login') {
+    store.commit('setMenu', false)
+    next()
+  } else {
+    axios.post('/authentication', null)
     .then(function (response) {
       store.commit('setUserId', response.data.id)
       store.commit('setUser', response.data.user)
       store.commit('setMenu', true)
-      // Reconnect the socket connetion on page load
-      // if (!Vue.$socket.connected) {
-      //   Vue.$socket.connect()
-      // }
       next()
     })
     .catch(function (error) {
       console.log('Could not authenticate user', error);
       router.push({ name: 'Login' })
     });
-  } else {
-    store.commit('setMenu', false)
-    next()
   }
 })
 

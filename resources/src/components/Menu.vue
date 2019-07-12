@@ -33,8 +33,13 @@ export default {
   },
   methods: {
     logout () {
-      window.localStorage.removeItem('accessToken')
-      this.$router.push({ name: 'Login' })
+      const $this = this
+      axios.delete('/authentication')
+      .then((response) => {
+        window.localStorage.removeItem('accessToken')
+        $this.$router.push({ name: 'Login' })
+      })
+
     }
   }
 }
