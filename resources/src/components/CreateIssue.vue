@@ -9,7 +9,7 @@
     </div>
     <form class="mt-8" @submit.prevent="checkIssue">
       <input type="text" class="border mb-6" v-model="form.title" />
-      <statuses v-bind:selected.sync="form.statusId" />
+      <v-select class="mb-6" v-model="form.status" :options="statuses" label="statusName" />
       <textarea rows="6" class="border mb-6" v-model="form.text" />
       <button class="b-green">
         <span v-if="edit"> Save Issue</span>
@@ -23,8 +23,8 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
 import mixins from '../mixins'
-import Statuses from './partials/Statuses'
 
 export default {
   name: 'CreateIssue',
@@ -32,7 +32,7 @@ export default {
     mixins
   ],
   components: {
-    Statuses
+    vSelect
   },
   props: [
     'id'
@@ -40,10 +40,11 @@ export default {
   data () {
     return {
       issue: null,
+      statuses: [],
       form: {
         title: null,
         text: null,
-        statusId: null
+        status: null
       },
       edit: false
     }
@@ -53,6 +54,7 @@ export default {
       this.edit = true
       this.getIssue()
     }
+    this.getStatuses()
   },
   methods: {
     checkIssue () {
@@ -68,6 +70,7 @@ export default {
       .then(function (response) {
         $this.form.title = null
         $this.form.text = null
+        $this.form.status = null
         $this.$root.$emit('getIssues')
       })
       .catch(function (error) {
@@ -87,6 +90,20 @@ export default {
       .catch(error => {
         console.log(error);
       });
+    },
+    getStatuses () {
+      let $this = this
+      axios.get('/statuses')
+      .then(function (response) {
+        $this.statuses = response.data.data
+        // if ($this.selected === null) {
+        //   $this.statusSelected = 1
+        //   $this.statuses.forEach((status) => {
+        //     if (status.id === $this.statusSelected)
+        //     $this.statusSelectedText = status.statusName
+        //   })
+        // }
+      })
     },
     editIssue () {
       let $this = this

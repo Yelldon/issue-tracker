@@ -64,6 +64,7 @@ module.exports = {
     create: [
       context => {
         context.data.userId = context.params.user.id
+        context.data.statusId = context.data.status.id
 
         return context;
       }
