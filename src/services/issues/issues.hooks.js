@@ -28,8 +28,7 @@ module.exports = {
             },
             {
               model: Status,
-              as: 'status',
-              attributes: ['statusName']
+              as: 'status'
             }
           ]
         }
@@ -52,8 +51,7 @@ module.exports = {
             },
             {
               model: Status,
-              as: 'status',
-              attributes: ['statusName']
+              as: 'status'
             }
           ]
         }

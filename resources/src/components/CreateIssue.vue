@@ -9,7 +9,12 @@
     </div>
     <form class="mt-8" @submit.prevent="checkIssue">
       <input type="text" class="border mb-6" v-model="form.title" />
-      <v-select class="mb-6" v-model="form.status" :options="statuses" label="statusName" />
+      <v-select class="mb-6"
+        v-model="form.status"
+        :options="statuses"
+        :clearable="false"
+        :searchable="false"
+        label="statusName" />
       <textarea rows="6" class="border mb-6" v-model="form.text" />
       <button class="b-green">
         <span v-if="edit"> Save Issue</span>
@@ -86,6 +91,7 @@ export default {
         $this.issue = response.data
         $this.form.title = data.title
         $this.form.text = data.text
+        $this.form.status = data.status
       })
       .catch(error => {
         console.log(error);
@@ -96,13 +102,15 @@ export default {
       axios.get('/statuses')
       .then(function (response) {
         $this.statuses = response.data.data
-        // if ($this.selected === null) {
-        //   $this.statusSelected = 1
-        //   $this.statuses.forEach((status) => {
-        //     if (status.id === $this.statusSelected)
-        //     $this.statusSelectedText = status.statusName
-        //   })
-        // }
+        if ($this.form.status === null) {
+          console.log('run')
+          $this.statuses.forEach((status) => {
+            if (status.id === 1) {
+              console.log(status)
+              $this.form.status = status
+            }
+          })
+        }
       })
     },
     editIssue () {
