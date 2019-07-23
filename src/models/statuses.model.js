@@ -9,6 +9,10 @@ module.exports = function (app) {
     statusName: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    default: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
     }
   }, {
     timestamps: false,

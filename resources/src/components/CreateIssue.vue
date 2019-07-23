@@ -2,7 +2,7 @@
   <div class="create">
     <h2 v-if="edit">Edit Issue</h2>
     <h2 v-else>Create New Issue</h2>
-    <div v-if="edit">
+    <div v-if="issue && edit">
       <p v-if="issue.user">Created By: {{ issue.user.firstname + ' ' + issue.user.lastname}}</p>
       <p>Added: {{ formatDateTime(issue.createdAt) }}</p>
       <p>Last Updated: {{ formatDateTime(issue.createdAt) }}</p>
@@ -17,7 +17,7 @@
         label="statusName" />
       <textarea rows="6" class="border mb-6" v-model="form.text" />
       <button class="b-green">
-        <span v-if="edit"> Save Issue</span>
+        <span v-if="edit">Save Issue</span>
         <span v-else>Create Issue</span>
       </button>
       <a href="#" class="pl-3" @click.prevent="cancel">
@@ -46,12 +46,12 @@ export default {
     return {
       issue: null,
       statuses: [],
+      edit: false,
       form: {
         title: null,
         text: null,
         status: null
-      },
-      edit: false
+      }
     }
   },
   mounted () {
@@ -72,13 +72,13 @@ export default {
     addIssue () {
       let $this = this
       axios.post('/issues', this.$data.form)
-      .then(function (response) {
+      .then((response) => {
         $this.form.title = null
         $this.form.text = null
         $this.form.status = null
         $this.$root.$emit('getIssues')
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
     },
@@ -87,7 +87,6 @@ export default {
       axios.get('/issues/' + this.id)
       .then(response => {
         let data = response.data
-        console.log(response);
         $this.issue = response.data
         $this.form.title = data.title
         $this.form.text = data.text
@@ -100,13 +99,11 @@ export default {
     getStatuses () {
       let $this = this
       axios.get('/statuses')
-      .then(function (response) {
+      .then((response) => {
         $this.statuses = response.data.data
         if ($this.form.status === null) {
-          console.log('run')
           $this.statuses.forEach((status) => {
-            if (status.id === 1) {
-              console.log(status)
+            if (status.default == true) {
               $this.form.status = status
             }
           })
@@ -115,11 +112,11 @@ export default {
     },
     editIssue () {
       let $this = this
-      axios.put('/issues/' + this.id, this.$data.form)
+      axios.patch('/issues/' + this.id, this.$data.form)
       .then(function (response) {
         $this.$root.$emit('getIssues')
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log(error);
       });
     },

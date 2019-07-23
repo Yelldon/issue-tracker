@@ -12,6 +12,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      type: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      default: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
       // Timestamps
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,

@@ -28,7 +28,8 @@ module.exports = {
             },
             {
               model: Status,
-              as: 'status'
+              as: 'status',
+              attributes: ['id', 'statusName', 'type']
             }
           ]
         }
@@ -51,7 +52,8 @@ module.exports = {
             },
             {
               model: Status,
-              as: 'status'
+              as: 'status',
+              attributes: ['id', 'statusName', 'type']
             }
           ]
         }
@@ -67,8 +69,16 @@ module.exports = {
         return context;
       }
     ],
-    update: [],
-    patch: [],
+    update: [
+      context => {
+        return context;
+      }
+    ],
+    patch: [
+      context => {
+        return context
+      }
+    ],
     remove: []
   },
 

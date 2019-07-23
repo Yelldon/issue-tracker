@@ -6,6 +6,11 @@
       <p>{{ issue.text }}</p>
     </div>
     <div class="w-1/2">
+      <div v-if="issue.status">
+        <div class="status" :class="issue.status.type">
+          {{ issue.status.statusName }}
+        </div>
+      </div>
       <p v-if="issue.user">Created By: {{ issue.user.firstname }} {{ issue.user.lastname }}</p>
       <p>Added: {{ formatDateTime(issue.createdAt) }}</p>
       <p>Updated: {{ formatDateTime(issue.updatedAt) }}</p>
