@@ -24,16 +24,16 @@ const router = new Router({
           path: 'create',
           name: 'DashboardCreate',
           component: () => import(
-            /* webpackChunkName: 'create-issue' */
-            './components/CreateIssue.vue')
+            /* webpackChunkName: 'issue' */
+            './components/issue/CreateEdit.vue')
         },
         {
           path: 'edit/:id',
           name: 'DashboardEdit',
           props: true,
           component: () => import(
-            /* webpackChunkName: 'create-issue' */
-            './components/CreateIssue.vue')
+            /* webpackChunkName: 'issue' */
+            './components/issue/CreateEdit.vue')
         }
       ]
     },

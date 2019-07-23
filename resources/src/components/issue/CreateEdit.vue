@@ -29,7 +29,7 @@
 
 <script>
 import vSelect from 'vue-select'
-import mixins from '../mixins'
+import mixins from '@/mixins'
 
 export default {
   name: 'CreateIssue',

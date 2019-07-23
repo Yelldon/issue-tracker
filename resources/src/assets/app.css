@@ -6,6 +6,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
+@import '../../node_modules/vue-select/dist/vue-select.css';
+
 * {
   box-sizing: border-box;
 }

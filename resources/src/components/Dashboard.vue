@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Issue from './Issue'
+import Issue from './issue/View'
 
 export default {
   name: 'Dashboard',
