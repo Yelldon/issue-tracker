@@ -1,14 +1,14 @@
 <template>
-  <div class="create">
+  <div class="issue--create-edit">
     <h2 v-if="edit">Edit Issue</h2>
     <h2 v-else>Create New Issue</h2>
     <div v-if="issue && edit">
       <p v-if="issue.user">Created By: {{ issue.user.firstname + ' ' + issue.user.lastname}}</p>
       <p>Added: {{ formatDateTime(issue.createdAt) }}</p>
-      <p>Last Updated: {{ formatDateTime(issue.createdAt) }}</p>
+      <p v-if="checkDates(issue.createdAt, issue.updatedAt)">Last Updated: {{ formatDateTime(issue.updatedAt) }}</p>
     </div>
     <form class="mt-8" @submit.prevent="checkIssue">
-      <input type="text" class="border mb-6" v-model="form.title" />
+      <input type="text" class="border mb-6" v-model="form.title" ref="focus" />
       <v-select class="mb-6"
         v-model="form.status"
         :options="statuses"
@@ -55,6 +55,7 @@ export default {
     }
   },
   mounted () {
+    this.$refs.focus.focus()
     if (this.id) {
       this.edit = true
       this.getIssue()
@@ -129,5 +130,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .issue--create-edit {
+    margin-top: 40px;
+  }
 </style>

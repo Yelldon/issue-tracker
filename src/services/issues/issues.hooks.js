@@ -71,11 +71,15 @@ module.exports = {
     ],
     update: [
       context => {
+        context.data.statusId = context.data.status.id
+
         return context;
       }
     ],
     patch: [
       context => {
+        context.data.statusId = context.data.status.id
+
         return context
       }
     ],
